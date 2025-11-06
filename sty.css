@@ -1,0 +1,30 @@
+body {
+  background-color: #4567b7; /* Blue background */
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.poems {
+  width: 50%;
+  padding: 20px;
+}
+
+.definitions {
+  width: 50%;
+  padding: 20px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+}
