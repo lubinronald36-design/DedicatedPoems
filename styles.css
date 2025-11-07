@@ -1,61 +1,61 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-}
-
-header {
-    background-color: #f0f0f0;
-    padding: 20px;
-    text-align: center;
+  background-color: #000;
+  color: #fff;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-section {
-    background-color: #f9f9f9;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+#poem-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-h1, h2 {
-    color: #333;
+#poem-list li {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #555;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+#poem-list li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
-li {
-    margin-bottom: 20px;
+#poem-form {
+  margin-top: 40px;
 }
 
-button {
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+label {
+  display: block;
+  margin-bottom: 10px;
 }
 
-button:hover {
-    background-color: #3e8e41;
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
 }
 
-.remove-btn {
-    background-color: #f44336;
+button[type="submit"] {
+  background-color: #555;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.remove-btn:hover {
-    background-color: #e91e63;
+button[type="submit"]:hover {
+  background-color: #666;
 }
