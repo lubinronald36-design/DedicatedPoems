@@ -1,64 +1,51 @@
-const poemForm = document.getElementById('poem-form');
+// Get the form and poem list elements
+const form = document.getElementById('poem-form');
 const poemList = document.getElementById('poem-list');
 
-// Load poems from local storage or use default poems
-let poems = JSON.parse(localStorage.getItem('poems')) || [
-  {
-    title: 'The Road Not Taken',
-    author: 'Robert Frost',
-    content: 'Two roads diverged in a yellow wood, And sorry I could not travel both...'
-  },
-  {
-    title: 'The Love Song of J. Alfred Prufrock',
-    author: 'T.S. Eliot',
-    content: 'Let us go then, you and I, When the evening is spread out against the sky...'
-  },
-  {
-    title: 'Do Not Go Gentle into That Good Night',
-    author: 'Dylan Thomas',
-    content: 'Do not go gentle into that good night, Old age should burn and rave at close of day...'
-  }
-];
-
-function displayPoems() {
-  poemList.innerHTML = '';
-  poems.forEach((poem, index) => {
-    const newPoem = document.createElement('li');
-    newPoem.innerHTML = `
-      <h3>${poem.title}</h3>
-      <p>${poem.content}</p>
-      <p>— ${poem.author}</p>
-    `;
-    poemList.appendChild(newPoem);
-  });
-}
-
-poemForm.addEventListener('submit', (e) => {
+// Add an event listener to the form submission
+form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const poemTitle = document.getElementById('poem-title').value;
-  const poemAuthor = document.getElementById('poem-author').value;
-  const poemContent = document.getElementById('poem-content').value;
 
-  // Validate input
-  if (poemTitle.trim() === '' || poemAuthor.trim() === '' || poemContent.trim() === '') {
-    alert('Please fill out all fields.');
-    return;
-  }
+  // Get the poem title, author, and content
+  const title = document.getElementById('poem-title').value;
+  const author = document.getElementById('poem-author').value;
+  const content = document.getElementById('poem-content').value;
 
-  // Add poem to array and local storage
-  poems.push({
-    title: poemTitle,
-    author: poemAuthor,
-    content: poemContent
-  });
+  // Create a poem object
+  const poem = {
+    title,
+    author,
+    content,
+  };
+
+  // Store the poem in local storage
+  const poems = JSON.parse(localStorage.getItem('poems')) || [];
+  poems.push(poem);
   localStorage.setItem('poems', JSON.stringify(poems));
 
-  // Display poems
-  displayPoems();
+  // Add the poem to the poem list
+  const poemListItem = document.createElement('li');
+  poemListItem.innerHTML = `
+    <h3>${title}</h3>
+    <p>By ${author}</p>
+    <p>${content}</p>
+  `;
+  poemList.appendChild(poemListItem);
 
-  // Clear form fields
-  poemForm.reset();
+  // Clear the form fields
+  form.reset();
 });
 
-// Display poems on page load
-displayPoems();
+// Load poems from local storage on page load
+window.addEventListener('load', () => {
+  const poems = JSON.parse(localStorage.getItem('poems')) || [];
+  poems.forEach((poem) => {
+    const poemListItem = document.createElement('li');
+    poemListItem.innerHTML = `
+      <h3>${poem.title}</h3>
+      <p>By ${poem.author}</p>
+      <p>${poem.content}</p>
+    `;
+    poemList.appendChild(poemListItem);
+  });
+});
