@@ -1,22 +1,48 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Automatic scrolling
-    const poemsContainer = document.querySelector('.poems');
-    let scrollTop = 0;
-    setInterval(() => {
-        scrollTop += 1;
-        poemsContainer.scrollTop = scrollTop;
-        if (scrollTop >= poemsContainer.scrollHeight - poemsContainer.offsetHeight) {
-            scrollTop = 0;
-        }
-    }, 50);
+const poemForm = document.getElementById('poem-form');
+const poemList = document.getElementById('poem-list');
 
-    // Clickable word definitions
-    const poems = document.querySelectorAll('.poem');
-    poems.forEach((poem) => {
-        const poemText = poem.querySelector('p');
-        const words = poemText.innerText.split(' ');
-        poemText.innerHTML = '';
-        words.forEach((word) => {
-            const span = document.createElement('span');
-            span.innerText = word + ' ';
-            span.addEvent
+// Load poems from local storage
+let poems = JSON.parse(localStorage.getItem('poems')) || [];
+
+function displayPoems() {
+  poemList.innerHTML = '';
+  poems.forEach((poem, index) => {
+    const newPoem = document.createElement('li');
+    newPoem.innerHTML = `
+      <h3>${poem.title}</h3>
+      <p>${poem.content}</p>
+      <p>— ${poem.author}</p>
+    `;
+    poemList.appendChild(newPoem);
+  });
+}
+
+poemForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const poemTitle = document.getElementById('poem-title').value;
+  const poemAuthor = document.getElementById('poem-author').value;
+  const poemContent = document.getElementById('poem-content').value;
+
+  // Validate input
+  if (poemTitle.trim() === '' || poemAuthor.trim() === '' || poemContent.trim() === '') {
+    alert('Please fill out all fields.');
+    return;
+  }
+
+  // Add poem to array and local storage
+  poems.push({
+    title: poemTitle,
+    author: poemAuthor,
+    content: poemContent
+  });
+  localStorage.setItem('poems', JSON.stringify(poems));
+
+  // Display poems
+  displayPoems();
+
+  // Clear form fields
+  poemForm.reset();
+});
+
+// Display poems on page load
+displayPoems();
