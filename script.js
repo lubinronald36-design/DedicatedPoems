@@ -1,48 +1,65 @@
-const poemForm = document.getElementById('poem-form');
-const poemList = document.getElementById('poem-list');
-
-// Load poems from local storage
-let poems = JSON.parse(localStorage.getItem('poems')) || [];
-
-function displayPoems() {
-  poemList.innerHTML = '';
-  poems.forEach((poem, index) => {
-    const newPoem = document.createElement('li');
-    newPoem.innerHTML = `
-      <h3>${poem.title}</h3>
-      <p>${poem.content}</p>
-      <p>— ${poem.author}</p>
-    `;
-    poemList.appendChild(newPoem);
-  });
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 0;
 }
 
-poemForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const poemTitle = document.getElementById('poem-title').value;
-  const poemAuthor = document.getElementById('poem-author').value;
-  const poemContent = document.getElementById('poem-content').value;
+header {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}
 
-  // Validate input
-  if (poemTitle.trim() === '' || poemAuthor.trim() === '' || poemContent.trim() === '') {
-    alert('Please fill out all fields.');
-    return;
-  }
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
 
-  // Add poem to array and local storage
-  poems.push({
-    title: poemTitle,
-    author: poemAuthor,
-    content: poemContent
-  });
-  localStorage.setItem('poems', JSON.stringify(poems));
+section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  // Display poems
-  displayPoems();
+h1, h2 {
+  color: #333;
+}
 
-  // Clear form fields
-  poemForm.reset();
-});
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-// Display poems on page load
-displayPoems();
+li {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
