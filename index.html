@@ -1,37 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Poetry Site</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .question {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        .options li button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .options li button:hover {
+            background-color: #ccc;
+        }
+        .result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Poetry Collection</h1>
-  </header>
-  <main>
-    <section id="poems">
-      <h2>Poems</h2>
-      <ul id="poem-list"></ul>
-    </section>
-    <section id="submit-poem">
-      <h2>Submit Your Poem</h2>
-      <form id="poem-form">
-        <label for="poem-title">Poem Title:</label>
-        <input type="text" id="poem-title" name="poem-title" required>
-        <label for="poem-author">Your Name:</label>
-        <input type="text" id="poem-author" name="poem-author" required>
-        <label for="poem-content">Your Poem:</label>
-        <textarea id="poem-content" name="poem-content" required></textarea>
-        <button type="submit">Submit Poem</button>
-      </form>
-    </section>
-  </main>
+    <h1>Music Quiz</h1>
+    <div class="question" id="question"></div>
+    <ul class="options" id="options"></ul>
+    <div class="result" id="result"></div>
+    <div id="final-score"></div>
 
-</footer><p style="text-align: center;">Webpage built by Ron!</p>
-</body>
-</html>
+    <script>
+        const questions = [
+            {
+                question: "What was the name of the famous music group consisting of John, Paul, George, and Ringo?",
+                options: ["The Rolling Stones", "The Beatles", "The Who", "The Beach Boys"],
+                answer: 1
+            },
+            {
+                question: "What was the name of Michael Jackson's iconic album released in 1982?",
+                options: ["Bad", "Thriller", "Off the Wall", "HIStory"],
+                answer: 1
+            },
+            {
+                question: "Which pop star is known for hits like 'Thank U, Next' and '7 Rings'?",
+                options: ["Taylor Swift", "Katy Perry", "Lady Gaga", "Ariana Grande"],
+                answer: 3
+            },
+            {
+                question: "Which of the following rock bands wrote the song 'Stairway to Heaven'?",
+                options: ["Led Zeppelin", "Pink Floyd", "Queen", "Guns N' Roses"],
+                answer: 0
+            },
+            {
+                question: "Which singer is known for her powerful voice and hit songs like 'Respect' and 'Chain of Fools'?",
+                options: ["Aretha Franklin", "Tina Turner", "Janis Joplin", "Etta James"],
+                answer: 0
+            },
+            {
+                question: "Which of the following artists is known for the song 'Purple Rain'?",
+                options: ["David Bowie", "Prince", "Elton John", "Stevie Wonder"],
+                answer: 1
+            },
+            {
+                question: "Which British rock band's 1975 album 'A Night at the Opera' is considered one of the greatest albums of all time?",
+                options: ["The Rolling Stones", "Led Zeppelin", "Pink Floyd", "Queen"],
+                answer: 3
+            }
+        ];
 
+        let currentQuestion = 0;
+        let score = 0;
 
+        function loadQuestion() {
+            const questionElement = document.getElementById("question");
+            const optionsElement = document.getElementById("options");
 
+            questionElement.textContent = questions[currentQuestion].question;
+
+            optionsElement.innerHTML = "";
+            questions[currentQuestion].options.forEach((option, index) => {
+                const li = document.createElement("li");
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = checkAnswer;
+                li.appendChild(button);
+                optionsElement.appendChild(li);
+            });
+        }
+
+        function checkAnswer(event) {
+            const answer = event.target.textContent;
+            const correctAnswerIndex = questions[currentQuestion].answer;
+            const correctAnswer = questions[currentQuestion].options[correctAnswerIndex];
+
+            if (answer === correctAnswer) {
+                score++;
+                document.getEle
