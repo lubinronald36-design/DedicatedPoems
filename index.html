@@ -1,88 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poetry Site</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poetry Site</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Poetry Collection</h1>
-    </header>
-    <main>
-        <section id="poems">
-            <h2>Poems</h2>
-            <ul id="poem-list">
-                <li>
-                    <h3>Poem 1</h3>
-                    <p>Demain, dès l'aube, je partirai.</p>
-                    <p>— Victor Hugo</p>
-                    <button class="favorite-btn">Add to Favorites</button>
-                </li>
-                <li>
-                    <h3>Poem 2</h3>
-                    <p>Les sanglots longs des violons de l'automne...</p>
-                    <p>— Paul Verlaine</p>
-                    <button class="favorite-btn">Add to Favorites</button>
-                </li>
-                <li>
-                    <h3>Poem 3</h3>
-                    <p>Je vis, je meurs ; je me brûle et m'éteins...</p>
-                    <p>— Louise Labé</p>
-                    <button class="favorite-btn">Add to Favorites</button>
-                </li>
-                <li>
-                    <h3>Poem 4</h3>
-                    <p>Ô lac ! l'année à peine a commencé son cours...</p>
-                    <p>— Alphonse de Lamartine</p>
-                    <button class="favorite-btn">Add to Favorites</button>
-                </li>
-                <li>
-                    <h3>Poem 5</h3>
-                    <p>La nature est un temple où de vivants piliers...</p>
-                    <p>— Charles Baudelaire</p>
-                    <button class="favorite-btn">Add to Favorites</button>
-                </li>
-            </ul>
-        </section>
-        <section id="favorites">
-            <h2>Favorites</h2>
-            <ul id="favorite-list"></ul>
-        </section>
-    </main>
-
-    <script>
-        const favoriteButtons = document.querySelectorAll('.favorite-btn');
-        const favoriteList = document.getElementById('favorite-list');
-
-        favoriteButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const poem = button.parentNode;
-                const poemText = poem.querySelector('p').textContent;
-                const poemAuthor = poem.querySelector('p:nth-child(3)').textContent;
-
-                const favoritePoem = document.createElement('li');
-                favoritePoem.innerHTML = `
-                    <h3>${poem.querySelector('h3').textContent}</h3>
-                    <p>${poemText}</p>
-                    <p>${poemAuthor}</p>
-                    <button class="remove-btn">Remove</button>
-                `;
-
-                favoriteList.appendChild(favoritePoem);
-
-                button.textContent = 'Remove from Favorites';
-                button.classList.replace('favorite-btn', 'remove-btn');
-
-                const removeButton = favoritePoem.querySelector('.remove-btn');
-                removeButton.addEventListener('click', () => {
-                    favoritePoem.remove();
-                    button.textContent = 'Add to Favorites';
-                    button.classList.replace('remove-btn', 'favorite-btn');
-                });
-            });
-        });
-    </script>
+  <header>
+    <h1>Poetry Collection</h1>
+  </header>
+  <main>
+    <section id="poems">
+      <h2>Poems</h2>
+      <ul id="poem-list"></ul>
+    </section>
+    <section id="submit-poem">
+      <h2>Submit Your Poem</h2>
+      <form id="poem-form">
+        <label for="poem-title">Poem Title:</label>
+        <input type="text" id="poem-title" name="poem-title" required>
+        <label for="poem-author">Your Name:</label>
+        <input type="text" id="poem-author" name="poem-author" required>
+        <label for="poem-content">Your Poem:</label>
+        <textarea id="poem-content" name="poem-content" required></textarea>
+        <button type="submit">Submit Poem</button>
+      </form>
+    </section>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
