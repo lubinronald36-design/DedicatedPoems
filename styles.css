@@ -1,61 +1,40 @@
 body {
-  background-color: #000;
-  color: #fff;
-}
-
-main {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #333;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-#poem-list {
-  list-style: none;
-  padding: 0;
+  background-color: #4567b7;
+  font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
 }
 
-#poem-list li {
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.poems {
+  width: 50%;
+  padding: 20px;
+}
+
+.definitions {
+  width: 50%;
+  padding: 20px;
+}
+
+.poem {
   margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #555;
 }
 
-#poem-list li:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-#poem-form {
-  margin-top: 40px;
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: none;
-  border-radius: 5px;
-}
-
-button[type="submit"] {
-  background-color: #555;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+span {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
-  background-color: #666;
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
 }
