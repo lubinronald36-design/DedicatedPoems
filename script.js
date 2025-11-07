@@ -1,65 +1,64 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  padding: 0;
+const poemForm = document.getElementById('poem-form');
+const poemList = document.getElementById('poem-list');
+
+// Load poems from local storage or use default poems
+let poems = JSON.parse(localStorage.getItem('poems')) || [
+  {
+    title: 'The Road Not Taken',
+    author: 'Robert Frost',
+    content: 'Two roads diverged in a yellow wood, And sorry I could not travel both...'
+  },
+  {
+    title: 'The Love Song of J. Alfred Prufrock',
+    author: 'T.S. Eliot',
+    content: 'Let us go then, you and I, When the evening is spread out against the sky...'
+  },
+  {
+    title: 'Do Not Go Gentle into That Good Night',
+    author: 'Dylan Thomas',
+    content: 'Do not go gentle into that good night, Old age should burn and rave at close of day...'
+  }
+];
+
+function displayPoems() {
+  poemList.innerHTML = '';
+  poems.forEach((poem, index) => {
+    const newPoem = document.createElement('li');
+    newPoem.innerHTML = `
+      <h3>${poem.title}</h3>
+      <p>${poem.content}</p>
+      <p>— ${poem.author}</p>
+    `;
+    poemList.appendChild(newPoem);
+  });
 }
 
-header {
-  background-color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-}
+poemForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const poemTitle = document.getElementById('poem-title').value;
+  const poemAuthor = document.getElementById('poem-author').value;
+  const poemContent = document.getElementById('poem-content').value;
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
+  // Validate input
+  if (poemTitle.trim() === '' || poemAuthor.trim() === '' || poemContent.trim() === '') {
+    alert('Please fill out all fields.');
+    return;
+  }
 
-section {
-  background-color: #f9f9f9;
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  // Add poem to array and local storage
+  poems.push({
+    title: poemTitle,
+    author: poemAuthor,
+    content: poemContent
+  });
+  localStorage.setItem('poems', JSON.stringify(poems));
 
-h1, h2 {
-  color: #333;
-}
+  // Display poems
+  displayPoems();
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+  // Clear form fields
+  poemForm.reset();
+});
 
-li {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-}
-
-button[type="submit"] {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #3e8e41;
-}
+// Display poems on page load
+displayPoems();
