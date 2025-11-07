@@ -1,114 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Quiz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        .question {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .options {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .options li {
-            margin-bottom: 10px;
-        }
-        .options li button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .options li button:hover {
-            background-color: #ccc;
-        }
-        .result {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RonPoems Collections</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Music Quiz</h1>
-    <div class="question" id="question"></div>
-    <ul class="options" id="options"></ul>
-    <div class="result" id="result"></div>
-    <div id="final-score"></div>
+  <header>
+    <h1>RonPoems Collections</h1>
+  </header>
+  <div class="container">
+    <div class="poems">
+      <!-- Poem 1 -->
+      <div class="poem">
+        <h2>Demain, dès l'aube</h2>
+        <h3>Victor Hugo</h3>
+        <p id="poem-1-text"> Demain, dès l'aube, je partirai. Vois-tu, je sais que tu m'attends. </p>
+      </div>
+      <!-- Add 9 more poems -->
+      <div class="poem">
+        <h2>La Cigale et la Fourmi</h2>
+        <h3>Jean de La Fontaine</h3>
+        <p id="poem-2-text"> La cigale ayant chanté tout l'été...</p>
+      </div>
+    </div>
+    <div class="definitions">
+      <h2>Definitions</h2>
+      <div id="definition"></div>
+    </div>
+  </div>
+  <footer>
+    <p>Contact: +1234567890</p>
+  </footer>
+  <audio id="background-music" src="your_music_file.mp3" loop></audio>
+  <script src="script.js"></script>
+</body>
+</html>
 
-    <script>
-        const questions = [
-            {
-                question: "What was the name of the famous music group consisting of John, Paul, George, and Ringo?",
-                options: ["The Rolling Stones", "The Beatles", "The Who", "The Beach Boys"],
-                answer: 1
-            },
-            {
-                question: "What was the name of Michael Jackson's iconic album released in 1982?",
-                options: ["Bad", "Thriller", "Off the Wall", "HIStory"],
-                answer: 1
-            },
-            {
-                question: "Which pop star is known for hits like 'Thank U, Next' and '7 Rings'?",
-                options: ["Taylor Swift", "Katy Perry", "Lady Gaga", "Ariana Grande"],
-                answer: 3
-            },
-            {
-                question: "Which of the following rock bands wrote the song 'Stairway to Heaven'?",
-                options: ["Led Zeppelin", "Pink Floyd", "Queen", "Guns N' Roses"],
-                answer: 0
-            },
-            {
-                question: "Which singer is known for her powerful voice and hit songs like 'Respect' and 'Chain of Fools'?",
-                options: ["Aretha Franklin", "Tina Turner", "Janis Joplin", "Etta James"],
-                answer: 0
-            },
-            {
-                question: "Which of the following artists is known for the song 'Purple Rain'?",
-                options: ["David Bowie", "Prince", "Elton John", "Stevie Wonder"],
-                answer: 1
-            },
-            {
-                question: "Which British rock band's 1975 album 'A Night at the Opera' is considered one of the greatest albums of all time?",
-                options: ["The Rolling Stones", "Led Zeppelin", "Pink Floyd", "Queen"],
-                answer: 3
-            }
-        ];
 
-        let currentQuestion = 0;
-        let score = 0;
 
-        function loadQuestion() {
-            const questionElement = document.getElementById("question");
-            const optionsElement = document.getElementById("options");
+/* style.css */
+body {
+  background-color: #4567b7; /* Blue background */
+  font-family: Arial, sans-serif;
+}
 
-            questionElement.textContent = questions[currentQuestion].question;
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
 
-            optionsElement.innerHTML = "";
-            questions[currentQuestion].options.forEach((option, index) => {
-                const li = document.createElement("li");
-                const button = document.createElement("button");
-                button.textContent = option;
-                button.onclick = checkAnswer;
-                li.appendChild(button);
-                optionsElement.appendChild(li);
-            });
+.poems {
+  width: 50%;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.definitions {
+  width: 50%;
+  padding: 20px;
+}
+
+.poem {
+  margin-bottom: 20px;
+}
+
+span {
+  cursor: pointer;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+}
+
+
+
+// script.js
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('background-music').play();
+  
+  // Automatic scrolling
+  const poemsContainer = document.querySelector('.poems');
+  let scrollTop = 0;
+  setInterval(() => {
+    scrollTop += 1;
+    poemsContainer.scrollTop = scrollTop;
+    if (scrollTop >= poemsContainer.scrollHeight - poemsContainer.offsetHeight) {
+      scrollTop = 0;
+    }
+  }, 50);
+
+  // Clickable word definitions
+  const poems = document.querySelectorAll('.poem');
+  poems.forEach((poem) => {
+    const poemText = poem.querySelector('p');
+    const words = poemText.innerText.split(' ');
+    poemText.innerHTML = '';
+    words.forEach((word) => {
+      const span = document.createElement('span');
+      span.innerText = word + ' ';
+      span.addEventListener('click', () => {
+        getDefinition(word);
+      });
+      poemText.appendChild(span);
+    });
+  });
+
+  function getDefinition(word) {
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data[0] && data[0].meanings && data[0].meanings[0] && data[0].meanings[0].definitions && data[0].meanings[0].definitions[0] && data[0].meanings[0].definitions[0].definition) {
+          const definition = data[0].meanings[0].definitions[0].definition;
+          document.getElementById('definition').innerText = definition;
+        } else {
+          document.getElementById('definition').innerText = 'No definition found.';
         }
-
-        function checkAnswer(event) {
-            const answer = event.target.textContent;
-            const correctAnswerIndex = questions[currentQuestion].answer;
-            const correctAnswer = questions[currentQuestion].options[correctAnswerIndex];
-
-            if (answer === correctAnswer) {
-                score++;
-                document.getEle
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+});
