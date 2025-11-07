@@ -1,51 +1,46 @@
-// Get the form and poem list elements
-const form = document.getElementById('poem-form');
-const poemList = document.getElementById('poem-list');
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('background-music').play();
+  
+  // Automatic scrolling
+  const poemsContainer = document.querySelector('.poems');
+  let scrollTop = 0;
+  setInterval(() => {
+    scrollTop += 1;
+    poemsContainer.scrollTop = scrollTop;
+    if (scrollTop >= poemsContainer.scrollHeight - poemsContainer.offsetHeight) {
+      scrollTop = 0;
+    }
+  }, 50);
 
-// Add an event listener to the form submission
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  // Get the poem title, author, and content
-  const title = document.getElementById('poem-title').value;
-  const author = document.getElementById('poem-author').value;
-  const content = document.getElementById('poem-content').value;
-
-  // Create a poem object
-  const poem = {
-    title,
-    author,
-    content,
-  };
-
-  // Store the poem in local storage
-  const poems = JSON.parse(localStorage.getItem('poems')) || [];
-  poems.push(poem);
-  localStorage.setItem('poems', JSON.stringify(poems));
-
-  // Add the poem to the poem list
-  const poemListItem = document.createElement('li');
-  poemListItem.innerHTML = `
-    <h3>${title}</h3>
-    <p>By ${author}</p>
-    <p>${content}</p>
-  `;
-  poemList.appendChild(poemListItem);
-
-  // Clear the form fields
-  form.reset();
-});
-
-// Load poems from local storage on page load
-window.addEventListener('load', () => {
-  const poems = JSON.parse(localStorage.getItem('poems')) || [];
+  // Clickable word definitions
+  const poems = document.querySelectorAll('.poem');
   poems.forEach((poem) => {
-    const poemListItem = document.createElement('li');
-    poemListItem.innerHTML = `
-      <h3>${poem.title}</h3>
-      <p>By ${poem.author}</p>
-      <p>${poem.content}</p>
-    `;
-    poemList.appendChild(poemListItem);
+    const poemText = poem.querySelector('p');
+    const words = poemText.innerText.split(' ');
+    poemText.innerHTML = '';
+    words.forEach((word) => {
+      const span = document.createElement('span');
+      span.innerText = word + ' ';
+      span.addEventListener('click', () => {
+        getDefinition(word);
+      });
+      poemText.appendChild(span);
+    });
   });
+
+  function getDefinition(word) {
+    fetch(https://api.dictionaryapi.dev/api/v2/entries/en/${word})
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data[0] && data[0].meanings && data[0].meanings[0] && data[0].meanings[0].definitions && data[0].meanings[0].definitions[0] && data[0].meanings[0].definitions[0].definition) {
+          const definition = data[0].meanings[0].definitions[0].definition;
+          document.getElementById('definition').innerText = definition;
+        } else {
+          document.getElementById('definition').innerText = 'No definition found.';
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
 });
