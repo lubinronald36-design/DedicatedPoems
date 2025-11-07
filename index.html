@@ -1,39 +1,44 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
+<html lang="en">
+<head><style>
+  body {
+    background-color: #000;
+    color: #fff;
+  }
+</style>
+  <style>
+  body {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+  }
+</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RonPoems Collections</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Poetry Site</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <h1>RonPoems Collections</h1>
+    <h1>Poetry Collection</h1>
   </header>
-  <div class="container">
-    <div class="poems">
-      <!-- Poem 1 -->
-      <div class="poem">
-        <h2>Demain, dès l'aube</h2>
-        <h3>Victor Hugo</h3>
-        <p id="poem-1-text"> Demain, dès l'aube, je partirai. Vois-tu, je sais que tu m'attends. </p>
-      </div>
-      <!-- Add 9 more poems -->
-      <div class="poem">
-        <h2>La Cigale et la Fourmi</h2>
-        <h3>Jean de La Fontaine</h3>
-        <p id="poem-2-text"> La cigale ayant chanté tout l'été...</p>
-      </div>
-    </div>
-    <div class="definitions">
-      <h2>Definitions</h2>
-      <div id="definition"></div>
-    </div>
-  </div>
-  <footer>
-    <p>Contact: +1234567890</p>
-  </footer>
-  <audio id="background-music" src="your_music_file.mp3" loop></audio>
+  <main>
+    <section id="poems">
+      <h2>Poems</h2>
+      <ul id="poem-list"></ul>
+    </section>
+    <section id="submit-poem">
+      <h2>Submit Your Poem</h2>
+      <form id="poem-form">
+        <label for="poem-title">Poem Title:</label>
+        <input type="text" id="poem-title" name="poem-title" required>
+        <label for="poem-author">Your Name:</label>
+        <input type="text" id="poem-author" name="poem-author" required>
+        <label for="poem-content">Your Poem:</label>
+        <textarea id="poem-content" name="poem-content" required></textarea>
+        <button type="submit">Submit Poem</button>
+      </form>
+    </section>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
